@@ -32,7 +32,9 @@ my_server <- function(input, output) {
       hc_colorAxis(dataClasses = color_classes(c(-10, 2, 20, 50, 80, 200), 
                                                colors = c("#ff0000", "#00ff00")))
   })
-  # do map with Norway, Switzerland, Australia, Ireland, Germany, Iceland, Sweden, Singpore, Netherlands
+  
+  
+  # do map with Norway, Switzerland, Australia, Ireland, Germany, Iceland, Hong Kong, Sweden, Singpore, Netherlands
   #Denmark, Canada, USA, UK, Finland, New Zealand (top 15 developed countries) Bar graph
   
 }
