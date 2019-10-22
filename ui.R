@@ -10,6 +10,9 @@ child_mortality <- na.omit(child_mortality)
 life_expectancy <- read.csv("data/life_expectancy.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 life_expectancy <- na.omit(life_expectancy)
 #View(life_expectancy)
+developed_count <- read.csv("data/developed_count.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+developed_count <- mutate(developed_count, difference = X2015 - X2000)
+#View(developed_count)
 
 # Define the first page content
 main_page <- tabPanel(
@@ -41,7 +44,8 @@ countries <- tabPanel(
       tags$script(src = "https://code.highcharts.com/mapdata/custom/world.js"), #Get World Map data
       #h3("Total Number of Medals Won by Country from 1896 to 2016"),
       highchartOutput("cm_map"),
-      highchartOutput("le_map")
+      highchartOutput("le_map"),
+      highchartOutput("bar_g")
       #div(id = "content",
          # p("This map displays the total number of medals won by each country. From the graph, we know the United States has won the most medals (4357).
         #  The number of medal won is ranged from 0 to 4357. There is a huge difference between the number of medals won in different countries. 
