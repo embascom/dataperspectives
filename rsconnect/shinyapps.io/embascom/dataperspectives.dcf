@@ -1,0 +1,12 @@
+name: dataperspectives
+title: dataperspectives
+username:
+account: embascom
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1367192
+bundleId: 2527313
+url: https://embascom.shinyapps.io/dataperspectives/
+when: 1571790586.20819
+asMultiple: FALSE
+asStatic: FALSE

@@ -12,11 +12,13 @@ child_mortality <- mutate(child_mortality, difference_2000_2015 = X2000 - X2015)
 #View(child_mortality)
 life_expectancy <- read.csv("data/life_expectancy.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 life_expectancy <- na.omit(life_expectancy)
-#View(life_expectancy)
+life_expectancy <- mutate(life_expectancy, diff = X2015 - X2000)
+View(life_expectancy)
 
 developed_count <- read.csv("data/developed_count.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 developed_count <- mutate(developed_count, difference = X2015 - X2000)
 #View(developed_count)
+
 
 my_server <- function(input, output) {
   
@@ -30,10 +32,10 @@ my_server <- function(input, output) {
   
   output$le_map <- renderHighchart({
     le_map <- hcmap('custom/world', data = life_expectancy, 
-                          name = "Life Expectancy", value = "X2007", borderColor = "black", 
-                          joinBy = c("name", "Country"), download_map_data = FALSE) %>%
+                    name = "Life Expectancy", value = "diff", borderColor = "black", 
+                    joinBy = c("name", "Country"), download_map_data = FALSE) %>%
       hc_colorAxis(dataClasses = color_classes(c(-10, 2, 10, 50, 80, 200), 
-                                               colors = c("#ff0000", "#00ff00")))
+                                               colors = c("#00ff00", "#ff0000")))
   })
   
   thm <- hc_theme(
