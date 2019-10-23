@@ -7,7 +7,7 @@ library(DT)
 
 child_mortality <- read.csv("data/child_mortality.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 child_mortality <- na.omit(child_mortality)
-child_mortality <- mutate(child_mortality, difference_2000_2015 = X2000 - X2015)
+child_mortality <- mutate(child_mortality, difference_2000_2015 = X2015 - X2000)
 
 #View(child_mortality)
 life_expectancy <- read.csv("data/life_expectancy.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -26,16 +26,16 @@ my_server <- function(input, output) {
     cm_map <- hcmap('custom/world', data = child_mortality, 
                           name = "Child Mortality", value = "difference_2000_2015", borderColor = "black", 
                           joinBy = c("name", "Country"), download_map_data = FALSE) %>%
-      hc_colorAxis(dataClasses = color_classes(c(-10, 2, 10, 20, 40, 80, 200), 
-                                             colors = c("#ff0000", "#00ff00")))
+      hc_colorAxis(dataClasses = color_classes(c(-200, -80, -40, -20, -10, -2, -1.8, 10), 
+                                             colors = c("#00ff00","#1D6618","#7F5200","#7F0000","#ff0000","#aa0000")))
   })
   
   output$le_map <- renderHighchart({
     le_map <- hcmap('custom/world', data = life_expectancy, 
                     name = "Life Expectancy", value = "diff", borderColor = "black", 
                     joinBy = c("name", "Country"), download_map_data = FALSE) %>%
-      hc_colorAxis(dataClasses = color_classes(c(-10, 2, 10, 50, 80, 200), 
-                                               colors = c("#00ff00", "#ff0000")))
+      hc_colorAxis(dataClasses = color_classes(c(-10, 2, 2.2, 4, 6, 8, 20), 
+                                               colors = c("#aa0000","#ff0000", "#7F0000", "#7F5200","#1D6618","#00ff00")))
   })
   
   thm <- hc_theme(
@@ -65,10 +65,10 @@ my_server <- function(input, output) {
   
   output$bar_g <- renderHighchart({
     bar_g <- highchart() %>% 
-      hc_chart(type = "column", options3d = list(enabled = TRUE, beta = 15, alpha = 15)) %>% 
-      hc_title(text = "A highcharter chart") %>% 
-      hc_xAxis(categories = c(developed_count$Country[1:11], developed_count$Country[13:15], developed_count$Country[12])) %>% 
-      hc_add_series(data = c(developed_count$difference[1:11], developed_count$difference[13:15], developed_count$difference[12]), name = "Change in Life Expectancy", color = "green") #%>%
+      hc_chart(type = "column") %>% 
+      hc_title(text = "Change in Life Expectancy in the World's Most Developed Countries") %>% 
+      hc_xAxis(categories = developed_count$Country) %>% 
+      hc_add_series(data = developed_count$difference, name = "Life Expectancy Increase", color = "gray") #%>%
       #hc_xAxis(categories = developed_count$Country[12]) %>%
       #hc_add_series(data = developed_count$difference[12], name = "Change in Life Expectancy", color = "red")
   })
